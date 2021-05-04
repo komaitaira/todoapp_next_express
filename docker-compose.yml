@@ -1,6 +1,19 @@
 version: "3"
 
-services: 
+services:
+  db:
+    container_name: todoapp_next_express_db
+    image: mysql:5.7
+    environment:
+      - TZ=Asia/Tokyo
+      - 'MYSQL_ROOT_PASSWORD=password'
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - default
+  
   frontend:
     build:
       context: .
