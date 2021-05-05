@@ -21,34 +21,23 @@ connection.connect((err) => {
   console.log('db connecting success');
 });
 
-app.get("/", (req, res) => {
-  connection.query(
-    'SELECT * FROM todos',
-    (err, result) => {
-      res.send(result);
-      console.log(result)
-    }
-  );
-  connection.end();
-});
-
-// todoの配列オブジェクトを作成
-const todos = [
-  { id: 2, title: "ネーム", completed: false },
-  { id: 3, title: "下書き", completed: true }
-];
 
 // Todo一覧の取得
 app.get('/api/todos', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-  if (!req.query.completed) {
-    return res.json(todos);
-  }
-  const completed = req.query.completed === 'true';
-  res.json(todos.filter(todo => todo.completed === completed));
+  // CORS対応。localhost:3000からのリクエストは許可
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  connection.query(
+    'SELECT * FROM todos',
+    (err, results) => {
+      if (!req.query.completed) {
+        console.log(results)
+        return res.json(results);
+      }
+      const completed = req.query.completed === 'true' ? 1 : 0;
+      res.json(results.filter(result => result.completed === completed));
+    }
+  );
 });
-
-
 
 // 9999番ポートでアクセス可能なサーバーを起動する
 app.listen(port, () => {
