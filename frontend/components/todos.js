@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import Form from './form';
 
 const pages = {
   index: { title: "全てのTodo", fetchQuery: '' },
@@ -42,6 +43,9 @@ export default function Todos(props) {
         )}
       </ul>
       <div>{pageLinks}</div>
+      <div>
+        <Form></Form>
+      </div>
     </React.Fragment>
   )
 }
