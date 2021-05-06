@@ -11,6 +11,7 @@ services:
       - "3307:3306"
     volumes:
       - ./db:/var/lib/mysql
+      - ./db/my.cnf:/etc/my.cnf
     networks:
       - default
   
