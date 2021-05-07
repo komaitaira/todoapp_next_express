@@ -10,7 +10,7 @@ const pages = {
 };
 
 // CSRでページを切り替えるためのリンク
-const pageLinks = Object.keys(pages).map((page, index) => 
+const pageLinks = Object.keys(pages).map((page, index) =>
   <Link href={`/${page === 'index' ? '' : page}`} key={index}>
     <a style={{ marginRight: 10 }}>{pages[page].title}</a>
   </Link>
